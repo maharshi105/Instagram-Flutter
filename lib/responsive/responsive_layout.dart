@@ -1,28 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/utills/dimension.dart';
+import 'package:provider/provider.dart';
 
-class ResponsiveLayout extends StatelessWidget {
+// class ResponsiveLayout extends StatelessWidget {
+//   final Widget webScreenLayout;
+//   final Widget mobileScreenLayout;
+//
+//
+//   const ResponsiveLayout({
+//     Key? key,
+//     required this.webScreenLayout,
+//     required this.mobileScreenLayout
+//   }) : super(key: key);
+
+class ResponsiveLayout extends StatefulWidget {
   final Widget webScreenLayout;
   final Widget mobileScreenLayout;
-
-
   const ResponsiveLayout({
     Key? key,
     required this.webScreenLayout,
     required this.mobileScreenLayout
   }) : super(key: key);
+//   const ResponsiveLayout({super.key});
 
+  @override
+  State<ResponsiveLayout> createState() => _ResponsiveLayoutState();
+}
+
+class _ResponsiveLayoutState extends State<ResponsiveLayout> {
+
+  @override
+  void initState() {
+    super.initState();
+    addData();
+  }
+  addData() async{
+    UserProvider _userProvider = Provider.of(context,listen: false);
+     await _userProvider.refreshUser();
+  }
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (context, constraints){
-          if(constraints.maxWidth > webScreenSize){
-              return webScreenLayout;
+          if(constraints.maxWidth > webScreenSize) {
+            return widget.webScreenLayout;
           }
-          else{
-            return mobileScreenLayout;
-          }
-        }
+            return widget.mobileScreenLayout;
+        },
     );
   }
 }
+
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return LayoutBuilder(
+  //       builder: (context, constraints){
+  //         if(constraints.maxWidth > webScreenSize){
+  //             return webScreenLayout;
+  //         }
+  //         else{
+  //           return mobileScreenLayout;
+  //         }
+  //       }
+  //   );
+  // }
+

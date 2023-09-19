@@ -44,7 +44,8 @@ class MyApp extends StatelessWidget {
               if (snapshot.hasData) {
                 return const ResponsiveLayout(
                     webScreenLayout: WebScreenLayout(),
-                    mobileScreenLayout: MobileScreenLayout());
+                    mobileScreenLayout: MobileScreenLayout(),
+                );
               } else if (snapshot.hasError) {
                 return Center(
                   child: Text('${snapshot.error}'),

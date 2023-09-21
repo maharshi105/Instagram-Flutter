@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/models/user.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
+import 'package:instagram_clone/screens/comments_screen.dart';
 import 'package:instagram_clone/utills/colors.dart';
 import 'package:instagram_clone/widgets/like_animation.dart';
 import 'package:intl/intl.dart';
@@ -91,9 +92,9 @@ class _PostCardState extends State<PostCard> {
           GestureDetector(
             onDoubleTap: () async {
               await FireStoreMethods().likePost(
-                  widget.snap['postId'],
-                  user.uid,
-                  widget.snap['likes'],
+                widget.snap['postId'],
+                user.uid,
+                widget.snap['likes'],
               );
 
               setState(() {
@@ -115,11 +116,11 @@ class _PostCardState extends State<PostCard> {
                   duration: const Duration(
                     milliseconds: 200,
                   ),
-                  opacity: isLikeAnimating? 1 : 0,
+                  opacity: isLikeAnimating ? 1 : 0,
                   child: LikeAnimation(
-                      child: const Icon(Icons.favorite,
-                          color: Colors.white, size: 120),
-                      isAnimating: isLikeAnimating,
+                    child: const Icon(Icons.favorite,
+                        color: Colors.white, size: 120),
+                    isAnimating: isLikeAnimating,
                     duration: const Duration(
                       milliseconds: 400,
                     ),
@@ -146,16 +147,24 @@ class _PostCardState extends State<PostCard> {
                       widget.snap['likes'],
                     );
                   },
-                  icon:  widget.snap['likes'].contains(user.uid)? const Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                  ) : const Icon(
-                    Icons.favorite_border,
-                  ),
+                  icon: widget.snap['likes'].contains(user.uid)
+                      ? const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        )
+                      : const Icon(
+                          Icons.favorite_border,
+                        ),
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CommentsScreen(
+                      snap: widget.snap,
+                    ),
+                  ),
+                ),
                 icon: const Icon(
                   Icons.comment_outlined,
                   // color: Colors.red,

@@ -37,10 +37,10 @@ class _LoginscreenState extends State<Loginscreen> {
     if (res == "success") {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-            builder: (context) => const ResponsiveLayout(
-                webScreenLayout: WebScreenLayout(),
-                mobileScreenLayout: MobileScreenLayout()
-            ),
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout()
+          ),
         ),
       );
     } else {
@@ -95,10 +95,10 @@ class _LoginscreenState extends State<Loginscreen> {
                 child: Container(
                   child: _isLoading
                       ? const Center(
-                          child: CircularProgressIndicator(
-                            color: primaryColor,
-                          ),
-                        )
+                    child: CircularProgressIndicator(
+                      color: primaryColor,
+                    ),
+                  )
                       : const Text('Log In'),
                   width: double.infinity,
                   alignment: Alignment.center,
